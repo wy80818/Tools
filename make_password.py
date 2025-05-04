@@ -1,11 +1,15 @@
 import random
 import sys
 
+# These variables can be edited, and new lists can be made!
+# Just remember to add the list to the ALL dictionary, with an appropriate key name!
+# ({"Key1": Value1, "Key2": Value2, ...})
 LOWERCASE = "abcdefghijklmnopqrstuvwxyz"
 UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 SYMBOLS = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
 NUMBERS = "0123456789"
 ALL = {"LOWERCASE": LOWERCASE, "UPPERCASE": UPPERCASE, "SYMBOLS": SYMBOLS, "NUMBERS": NUMBERS}
+
 
 def generate_password(length, o_chars):
     """
