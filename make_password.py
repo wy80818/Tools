@@ -1,5 +1,6 @@
 import random
 import sys
+import argparse
 
 # These variables can be edited, and new lists can be made!
 # Just remember to add the list to the ALL dictionary, with an appropriate key name!
@@ -8,7 +9,7 @@ LOWERCASE = "abcdefghijklmnopqrstuvwxyz"
 UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 SYMBOLS = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
 NUMBERS = "0123456789"
-ALL = {"LOWERCASE": LOWERCASE, "UPPERCASE": UPPERCASE, "SYMBOLS": SYMBOLS, "NUMBERS": NUMBERS}
+ALL = {"Lowercase Characters": LOWERCASE, "Uppercase Characters": UPPERCASE, "Special Symbols": SYMBOLS, "Numbers": NUMBERS}
 
 
 def generate_password(length, o_chars):
@@ -47,10 +48,11 @@ def analyze(password):
                 counts[i] += 1
 
     # Outputs percentages
+    longest = max(map(lambda x: len(x), list(ALL.keys())))
     print(f"PASSWORD:\n{password}\n")
     for i in range(len(counts)):
         calc = 100 * (counts[i]/len(password))
-        print(f"{list(ALL.keys())[i]}: {calc:.2f}%", end=" ")
+        print(f"{(list(ALL.keys())[i]+":").ljust(longest)} {calc:.2f}%", end=" ")
         if calc <= 5:
             print("VERY LOW!")
         elif calc <= 15:
@@ -62,8 +64,13 @@ def analyze(password):
 if __name__ == '__main__':
     random.seed()  # Seed is set to system time
 
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-l", required=False, help="Password Length.")
+    parser.add_argument("-o", required=False, help="Omitted characters from the password.")
+    args = parser.parse_args()
+
     # Gets user inputted length, retries if bad number
-    user_length = 0
+    user_length = int(args.l) if args.l else None
     while not user_length:
         try:
             user_length = int(input("Please enter a password length (>8 recommended!): "))
@@ -71,15 +78,17 @@ if __name__ == '__main__':
             print("Not a number!")
 
     # Gets user inputted omitted characters, these chars will NOT be generated in the password.
-    omitted_chars = input("Please enter any chars to omit (empty input for none): ")
+    omitted_chars = args.o
+    if not omitted_chars:
+        omitted_chars = input("Please enter any chars to omit (empty input for none): ")
 
     # Generates a new password each time user presses enter.
     try: 
         while True:
-            print("=================================\n")
+            print("\n=================================\n")
             password = generate_password(user_length, omitted_chars)
             analyze(password)
-            input("CTRL+C to stop, ENTER to continue >> ")
+            input("\nCTRL+C to stop, ENTER to continue >> ")
     except KeyboardInterrupt as e:
         print("Exitting...")
     
