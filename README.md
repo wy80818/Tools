@@ -1,5 +1,4 @@
 # Tools
- Some cool tools I made
 
 ## Virtual Environment and Install Libraries
 1. `python3 -m venv venv` (Linux) or `python -m venv venv` (Windows)
