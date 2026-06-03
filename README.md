@@ -14,3 +14,8 @@
 
 ## heic_get.py
 1. `python3 heic_get.py --file-name file.heic` (Linux) or `python heic_get.py --file-name file.heic` (Windows)
+
+
+## file_identify.py
+!!Disclaimer!! This program should not be used and is currently broken. The website in which it currently pulls metadata from is bad and improperly formatted, 
+which causes returned results to not be accurate. Maybe in the future I will find a better site to pull from.
